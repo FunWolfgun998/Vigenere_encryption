@@ -1,8 +1,10 @@
 package org.example;
 
 public class Vigenere {
+    private Vigenere() {}
+
     public static String encrypt(int[] key, String message){
-        if (key == null || key.length == 0 || message == null) {
+        if (key == null || key.length == 0 || message.isEmpty()) {
             return "";
         }
         int k= 0;
@@ -17,7 +19,7 @@ public class Vigenere {
             char encryptedLetter = (char) (32 + ((letter - 32 + key[k++%key.length]) % 95));
             encryptedMessage[i] = encryptedLetter;
         }
-        return encryptedMessage.toString();
+        return new String(encryptedMessage);
     }
     public static String decrypt(int[] key, String message){
         if (key == null || key.length == 0 || message == null) {
@@ -32,9 +34,9 @@ public class Vigenere {
                 decryptedMessage[i] = letter;
                 continue;
             }
-            char dencryptedLetter =(char) (32 + Math.floorMod(letter - 32 - key[k % key.length], 95));
+            char dencryptedLetter =(char) (32 + Math.floorMod(letter - 32 - key[k++ % key.length], 95));
             decryptedMessage[i] = dencryptedLetter;
         }
-        return decryptedMessage.toString();
+        return new String(decryptedMessage);
     }
 }
